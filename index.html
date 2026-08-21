@@ -18,6 +18,7 @@
     .links{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.links a{padding:13px 6px;text-align:center;background:#c82020;color:#fff0b8;border:1px solid #9f1515;border-radius:12px;font-size:.78rem;font-weight:700;box-shadow:0 4px 0 #8f1212}.links a:active{transform:translateY(2px);box-shadow:0 2px 0 #8f1212}
     .card{margin-top:13px;padding:21px;background:#fff2c7;color:#211b15;border:1px solid #e0b33d;border-radius:22px;box-shadow:0 10px 24px #5d130f35}.heading{display:flex;align-items:center;gap:12px}.heading>span{font-size:1.75rem}.eyebrow{margin:0 0 3px;color:#c82020;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}h2{margin:0;color:#b51b1b;font-size:1.65rem}
     .list{margin-top:18px;display:grid;gap:10px}.item{padding:15px;border:1px solid #e2c982;border-radius:14px;background:#fff9e7}.ale{border-left:5px solid #ffb900}.item h3{margin:0 0 3px;font-size:1.05rem}.item p{margin:0;color:#5c5144;font-size:.88rem}.event{border-left:5px solid #c82020}.event strong{color:#211b15}
+    .tag{display:inline-block;margin-bottom:7px;padding:4px 8px;border-radius:6px;background:#c82020;color:#fff0b8;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}.event .tag{background:#ffbd16;color:#5d130f}
     .hours{margin:18px 0 0}.hours div{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #e2c982}.hours div:last-child{border-bottom:0}dt{font-weight:700}dd{margin:0;font-weight:500}
     .welcome{margin-top:13px;padding:28px 16px 24px;text-align:center;background:#c82020;color:#fff0b8;border-radius:22px;box-shadow:0 10px 24px #5d130f35}.welcome .eyebrow{color:#ffbd16}.welcome h2{margin:6px 0;color:#fff0b8;font-size:1.8rem}.welcome p:last-child{margin:8px auto 0;max-width:440px;color:#ffe9aa;line-height:1.55}footer{padding:16px 0 4px;text-align:center;color:#fff0b8;font-size:.78rem;font-weight:700}
     @media(min-width:650px){.app{padding-top:28px}}
@@ -28,11 +29,11 @@
   <header class="hero"><div class="badge">CLEVEDON</div><h1>Clevedon Brewery<br>&amp; Tap Bar</h1><p>Good beer. Local people. A warm welcome.</p></header>
   <nav class="links" aria-label="Quick links"><a href="#ales">Our Ales</a><a href="#events">What's On</a><a href="#hours">Opening Times</a></nav>
   <section id="ales" class="card"><div class="heading"><span>🍺</span><div><p class="eyebrow">Freshly poured</p><h2>Current Ales</h2></div></div><div class="list">
-    <article class="item ale"><h3>IPA</h3><p>A crisp, hop-forward brewery favourite.</p></article>
-    <article class="item ale"><h3>BS21</h3><p>A locally brewed ale from Clevedon Brewery.</p></article>
-    <article class="item ale"><h3>Fools Gold</h3><p>From Twisted Oak.</p></article>
+    <article class="item ale"><span class="tag">On Tap</span><h3>IPA</h3><p>A crisp, hop-forward brewery favourite.</p></article>
+    <article class="item ale"><span class="tag">On Tap</span><h3>BS21</h3><p>A locally brewed ale from Clevedon Brewery.</p></article>
+    <article class="item ale"><span class="tag">On Tap</span><h3>Fools Gold</h3><p>From Twisted Oak.</p></article>
   </div></section>
-  <section id="events" class="card"><div class="heading"><span>📅</span><div><p class="eyebrow">Coming up</p><h2>What's On</h2></div></div><div class="list"><div class="item event"><strong>Clevedon Show</strong></div><div class="item event"><strong>Clevedon Brewery Makers &amp; Crafters Market</strong></div></div></section>
+  <section id="events" class="card"><div class="heading"><span>📅</span><div><p class="eyebrow">Coming up</p><h2>What's On</h2></div></div><div class="list"><div class="item event"><span class="tag">Upcoming</span><strong>Clevedon Show</strong></div><div class="item event"><span class="tag">Upcoming</span><strong>Clevedon Brewery Makers &amp; Crafters Market</strong></div></div></section>
   <section id="hours" class="card"><div class="heading"><span>🕐</span><div><p class="eyebrow">Come and see us</p><h2>Opening Times</h2></div></div><dl class="hours"><div><dt>Thursday</dt><dd>4pm – 7pm</dd></div><div><dt>Friday</dt><dd>4pm – 9pm</dd></div><div><dt>Saturday</dt><dd>2pm – 9pm</dd></div><div><dt>Sunday</dt><dd>2pm – 6pm</dd></div></dl></section>
   <section class="welcome"><p class="eyebrow">Welcome to your local brewery</p><h2>Drink local. Support local.</h2><p>Keep this page handy for our current ales, upcoming events and opening times.</p></section>
   <footer>Clevedon Brewery &amp; Tap Bar</footer>
