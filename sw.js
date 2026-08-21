@@ -1,4 +1,4 @@
-const CACHE='clevedon-brewery-v4'
+const CACHE='clevedon-brewery-v5'
 const APP_SHELL=['/','/index.html','/manifest.webmanifest']
 async function buildIndex(response){
   const html=await response.text()
