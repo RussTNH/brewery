@@ -34,7 +34,16 @@ function App() {
           <div><p className="eyebrow">Freshly poured</p><h2>Current Ales</h2></div>
         </div>
         <div className="ale-list">
-          {ales.map((ale) => <article className="ale" key={ale.name}><h3>{ale.name}</h3><p>{ale.note}</p></article>)}
+          {ales.map((ale) => (
+            <article className="ale" key={ale.name}>
+              <div className="ale-topline">
+                <span className="ale-status">ON TAP</span>
+                <span className="ale-mark">CLEVEDON BREWERY</span>
+              </div>
+              <h3>{ale.name}</h3>
+              <p>{ale.note}</p>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -44,7 +53,12 @@ function App() {
           <div><p className="eyebrow">Coming up</p><h2>What&apos;s On</h2></div>
         </div>
         <div className="event-list">
-          {events.map((event) => <div className="event" key={event}><strong>{event}</strong></div>)}
+          {events.map((event) => (
+            <article className="event" key={event}>
+              <span className="event-label">UPCOMING</span>
+              <strong>{event}</strong>
+            </article>
+          ))}
         </div>
       </section>
 
