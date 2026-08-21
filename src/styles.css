@@ -105,20 +105,53 @@ h1 {
 }
 h2 { margin: 0; color: #b51b1b; font-size: 1.65rem; }
 
-.ale-list { margin-top: 18px; display: grid; gap: 10px; }
-.ale, .event {
-  padding: 15px;
+.ale-list { margin-top: 18px; display: grid; gap: 11px; }
+.ale {
+  position: relative;
+  overflow: hidden;
+  padding: 17px 16px 16px 20px;
   border: 1px solid #e2c982;
-  border-radius: 14px;
+  border-radius: 15px;
   background: #fff9e7;
+  border-left: 6px solid #ffb900;
+  box-shadow: 0 4px 10px #8f121212;
 }
-.ale { border-left: 5px solid #ffb900; }
-.ale h3 { margin: 0 0 3px; font-size: 1.05rem; }
-.ale p { margin: 0; color: #5c5144; font-size: .88rem; }
+.ale::after {
+  content: 'ON TAP';
+  position: absolute;
+  top: 13px;
+  right: 13px;
+  padding: 4px 7px;
+  border-radius: 7px;
+  background: #ffbd16;
+  color: #8f1212;
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+.ale h3 { margin: 0 70px 5px 0; color: #b51b1b; font-family: 'Playfair Display', Georgia, serif; font-size: 1.2rem; }
+.ale p { margin: 0; max-width: 92%; color: #5c5144; font-size: .88rem; line-height: 1.45; }
 
-.event-list { display: grid; gap: 10px; margin-top: 18px; }
-.event { border-left: 5px solid #c82020; }
-.event strong { color: #211b15; }
+.event-list { display: grid; gap: 11px; margin-top: 18px; }
+.event {
+  position: relative;
+  padding: 17px 16px 17px 20px;
+  border: 1px solid #e2c982;
+  border-radius: 15px;
+  background: #fff9e7;
+  border-left: 6px solid #c82020;
+  box-shadow: 0 4px 10px #8f121212;
+}
+.event::before {
+  content: 'UPCOMING';
+  display: block;
+  margin-bottom: 5px;
+  color: #c82020;
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+}
+.event strong { color: #211b15; font-size: 1rem; line-height: 1.35; }
 
 .hours { margin: 18px 0 0; }
 .hours div {
