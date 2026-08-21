@@ -1,15 +1,42 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#243b2a" />
-    <meta name="description" content="Clevedon Brewery & Tap Bar — locally brewed ales, events and opening times." />
-    <link rel="manifest" href="/manifest.webmanifest" />
-    <title>Clevedon Brewery & Tap Bar</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#c82020">
+  <meta name="description" content="Clevedon Brewery & Tap Bar — locally brewed ales, events and opening times.">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <title>Clevedon Brewery & Tap Bar</title>
+  <style>
+    :root{font-family:Arial,Helvetica,sans-serif;color:#211b15;background:#c82020;font-synthesis:none}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-width:320px;background:#c82020}
+    a{color:inherit;text-decoration:none}.app{width:min(100%,620px);margin:auto;padding:12px 12px 30px}
+    .hero{position:relative;overflow:hidden;padding:34px 18px 30px;text-align:center;background:#ffbd16;border:2px solid #c82020;border-radius:24px;box-shadow:0 12px 28px #5d130f55}
+    .hero:before{content:'';position:absolute;inset:-45% -25%;background:repeating-conic-gradient(from -8deg,#ffe7a1 0 11deg,transparent 11deg 23deg);opacity:.72}
+    .hero>*{position:relative}.badge{display:inline-block;padding:8px 16px;background:#c82020;color:#fff0b8;border:2px solid #a91515;border-radius:12px;font-size:.9rem;font-weight:700;letter-spacing:.12em;box-shadow:0 5px 0 #8f1212}
+    h1,h2{font-family:Georgia,'Times New Roman',serif}h1{margin:18px 0 8px;color:#1b1814;font-size:clamp(2.1rem,10vw,3.4rem);line-height:.98}.hero p{margin:0;color:#4a2419;font-weight:700}
+    .links{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.links a{padding:13px 6px;text-align:center;background:#c82020;color:#fff0b8;border:1px solid #9f1515;border-radius:12px;font-size:.78rem;font-weight:700;box-shadow:0 4px 0 #8f1212}.links a:active{transform:translateY(2px);box-shadow:0 2px 0 #8f1212}
+    .card{margin-top:13px;padding:21px;background:#fff2c7;color:#211b15;border:1px solid #e0b33d;border-radius:22px;box-shadow:0 10px 24px #5d130f35}.heading{display:flex;align-items:center;gap:12px}.heading>span{font-size:1.75rem}.eyebrow{margin:0 0 3px;color:#c82020;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}h2{margin:0;color:#b51b1b;font-size:1.65rem}
+    .list{margin-top:18px;display:grid;gap:10px}.item{padding:15px;border:1px solid #e2c982;border-radius:14px;background:#fff9e7}.ale{border-left:5px solid #ffb900}.item h3{margin:0 0 3px;font-size:1.05rem}.item p{margin:0;color:#5c5144;font-size:.88rem}.event{border-left:5px solid #c82020}.event strong{color:#211b15}
+    .hours{margin:18px 0 0}.hours div{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #e2c982}.hours div:last-child{border-bottom:0}dt{font-weight:700}dd{margin:0;font-weight:500}
+    .welcome{margin-top:13px;padding:28px 16px 24px;text-align:center;background:#c82020;color:#fff0b8;border-radius:22px;box-shadow:0 10px 24px #5d130f35}.welcome .eyebrow{color:#ffbd16}.welcome h2{margin:6px 0;color:#fff0b8;font-size:1.8rem}.welcome p:last-child{margin:8px auto 0;max-width:440px;color:#ffe9aa;line-height:1.55}footer{padding:16px 0 4px;text-align:center;color:#fff0b8;font-size:.78rem;font-weight:700}
+    @media(min-width:650px){.app{padding-top:28px}}
+  </style>
+</head>
+<body>
+<main class="app">
+  <header class="hero"><div class="badge">CLEVEDON</div><h1>Clevedon Brewery<br>&amp; Tap Bar</h1><p>Good beer. Local people. A warm welcome.</p></header>
+  <nav class="links" aria-label="Quick links"><a href="#ales">Our Ales</a><a href="#events">What's On</a><a href="#hours">Opening Times</a></nav>
+  <section id="ales" class="card"><div class="heading"><span>🍺</span><div><p class="eyebrow">Freshly poured</p><h2>Current Ales</h2></div></div><div class="list">
+    <article class="item ale"><h3>IPA</h3><p>A crisp, hop-forward brewery favourite.</p></article>
+    <article class="item ale"><h3>BS21</h3><p>A locally brewed ale from Clevedon Brewery.</p></article>
+    <article class="item ale"><h3>Fools Gold</h3><p>From Twisted Oak.</p></article>
+  </div></section>
+  <section id="events" class="card"><div class="heading"><span>📅</span><div><p class="eyebrow">Coming up</p><h2>What's On</h2></div></div><div class="list"><div class="item event"><strong>Clevedon Show</strong></div><div class="item event"><strong>Clevedon Brewery Makers &amp; Crafters Market</strong></div></div></section>
+  <section id="hours" class="card"><div class="heading"><span>🕐</span><div><p class="eyebrow">Come and see us</p><h2>Opening Times</h2></div></div><dl class="hours"><div><dt>Thursday</dt><dd>4pm – 7pm</dd></div><div><dt>Friday</dt><dd>4pm – 9pm</dd></div><div><dt>Saturday</dt><dd>2pm – 9pm</dd></div><div><dt>Sunday</dt><dd>2pm – 6pm</dd></div></dl></section>
+  <section class="welcome"><p class="eyebrow">Welcome to your local brewery</p><h2>Drink local. Support local.</h2><p>Keep this page handy for our current ales, upcoming events and opening times.</p></section>
+  <footer>Clevedon Brewery &amp; Tap Bar</footer>
+</main>
+<script>if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));</script>
+</body>
 </html>
