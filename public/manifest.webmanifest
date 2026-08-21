@@ -1,0 +1,10 @@
+{
+  "name": "Clevedon Brewery & Tap Bar",
+  "short_name": "Clevedon Brewery",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#17241c",
+  "theme_color": "#243b2a",
+  "description": "Current ales, upcoming events and opening times for Clevedon Brewery & Tap Bar.",
+  "icons": []
+}
