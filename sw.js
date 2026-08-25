@@ -1,12 +1,12 @@
-const CACHE='clevedon-brewery-v9'
+const CACHE='clevedon-brewery-v10'
 const APP_SHELL=['/','/index.html','/manifest.webmanifest']
 
 async function buildIndex(response){
   const html=await response.text()
   const [ipa,bs21,logo]=await Promise.all([
-    fetch('/assets/ipa.b64?v=9',{cache:'no-store'}).then(r=>r.text()),
-    fetch('/assets/bs21.b64?v=9',{cache:'no-store'}).then(r=>r.text()),
-    fetch('/assets/logo.b64?v=9',{cache:'no-store'}).then(r=>r.text())
+    fetch('/assets/ipa.b64?v=10',{cache:'no-store'}).then(r=>r.text()),
+    fetch('/assets/bs21.b64?v=10',{cache:'no-store'}).then(r=>r.text()),
+    fetch('/assets/logo.b64?v=10',{cache:'no-store'}).then(r=>r.text())
   ])
   const out=html
     .replace(/<img class="beer-art" alt="Clevedon Brewery IPA artwork"[^>]*>/,'<img class="beer-art" alt="Clevedon Brewery IPA artwork" src="data:image/webp;base64,'+ipa.trim()+'">')
