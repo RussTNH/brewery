@@ -1,4 +1,4 @@
-const CACHE='clevedon-brewery-v10'
+const CACHE='clevedon-brewery-v11'
 const APP_SHELL=['/','/index.html','/manifest.webmanifest']
 
 async function buildIndex(response){
@@ -11,6 +11,7 @@ async function buildIndex(response){
   const out=html
     .replace(/<img class="beer-art" alt="Clevedon Brewery IPA artwork"[^>]*>/,'<img class="beer-art" alt="Clevedon Brewery IPA artwork" src="data:image/webp;base64,'+ipa.trim()+'">')
     .replace(/<img class="beer-art" alt="Clevedon Brewery BS21 artwork"[^>]*>/,'<img class="beer-art" alt="Clevedon Brewery BS21 artwork" src="data:image/jpeg;base64,'+bs21.trim()+'">')
+    .replace(/<img class="beer-art" alt="Twisted Oak Fools Gold artwork"[^>]*>/,'<img class="beer-art" alt="Twisted Oak Fools Gold artwork" src="/assets/foolsgold.jpg?v=1">')
     .replace('<div class="badge">CLEVEDON</div>','<div class="badge" style="padding:6px 12px"><img alt="Clevedon Brewery" src="data:image/jpeg;base64,'+logo.trim()+'" style="display:block;width:150px;height:auto;max-width:60vw;border-radius:6px"></div>')
   return new Response(out,{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'}})
 }
