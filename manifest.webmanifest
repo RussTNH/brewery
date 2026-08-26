@@ -6,5 +6,12 @@
   "background_color": "#c82020",
   "theme_color": "#c82020",
   "description": "Clevedon Brewery & Tap Bar — locally brewed ales, events and opening times.",
-  "icons": []
+  "icons": [
+    {
+      "src": "assets/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
 }
