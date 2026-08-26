@@ -1,7 +1,9 @@
 {
   "name": "Clevedon Brewery & Tap Bar",
   "short_name": "Clevedon Brewery",
-  "start_url": "./",
+  "id": "./guide.html",
+  "start_url": "./guide.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#c82020",
   "theme_color": "#c82020",
