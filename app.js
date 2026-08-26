@@ -29,7 +29,9 @@ async function loadAles() {
         if (!response.ok) throw new Error("Unable to load ales");
 
         const ales = await response.json();
-        container.innerHTML = ales.map(ale => `
+        const visibleAles = ales.filter(ale => String(ale.status || "On Tap").toLowerCase() !== "off tap");
+
+        container.innerHTML = visibleAles.map(ale => `
             <article class="item ale">
                 <div class="ale-copy">
                     <span class="tag">${escapeHtml(ale.status || "On Tap")}</span>
