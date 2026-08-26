@@ -3,8 +3,11 @@ session_start();
 if (empty($_SESSION['brewery_admin'])) { header('Location: index.php'); exit; }
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') { header('Location: index.php'); exit; }
 
-$file = __DIR__ . '/../data/events.json';
-$events = json_decode(file_get_contents($file), true) ?: [];
+$file = __DIR__ . '/../live-data/data/events.json';
+$uploadsDir = __DIR__ . '/../live-data/uploads';
+if (!is_dir($uploadsDir) && !mkdir($uploadsDir, 0755, true) && !is_dir($uploadsDir)) { http_response_code(500); exit('Persistent uploads folder not found.'); }
+
+$events = json_decode((string)@file_get_contents($file), true) ?: [];
 $id = isset($_POST['id']) && $_POST['id'] !== '' ? (int)$_POST['id'] : null;
 $existing = ($id !== null && isset($events[$id])) ? $events[$id] : [];
 
@@ -19,6 +22,8 @@ if ($title === '') { http_response_code(400); exit('Event title is required.'); 
 $image = (string)($existing['image'] ?? '');
 if (isset($_FILES['artwork']) && $_FILES['artwork']['error'] !== UPLOAD_ERR_NO_FILE) {
     if ($_FILES['artwork']['error'] !== UPLOAD_ERR_OK) { http_response_code(400); exit('Artwork upload failed.'); }
+    if ((int)$_FILES['artwork']['size'] > 2 * 1024 * 1024) { http_response_code(400); exit('Artwork must be 2 MB or smaller.'); }
+
     $allowed = [
         'image/jpeg' => 'jpg',
         'image/png' => 'png',
@@ -30,11 +35,9 @@ if (isset($_FILES['artwork']) && $_FILES['artwork']['error'] !== UPLOAD_ERR_NO_F
     $base = preg_replace('/[^a-z0-9]+/', '-', strtolower($title));
     $base = trim($base, '-') ?: 'event';
     $filename = 'event-' . $base . '-' . time() . '.' . $allowed[$mime];
-    $targetDir = __DIR__ . '/../assets/events';
-    if (!is_dir($targetDir) && !mkdir($targetDir, 0755, true) && !is_dir($targetDir)) { http_response_code(500); exit('Unable to create event artwork folder.'); }
-    $target = $targetDir . '/' . $filename;
+    $target = $uploadsDir . '/' . $filename;
     if (!move_uploaded_file($_FILES['artwork']['tmp_name'], $target)) { http_response_code(500); exit('Unable to save artwork.'); }
-    $image = 'assets/events/' . $filename;
+    $image = 'live-data/uploads/' . $filename;
 }
 
 $record = [
@@ -49,8 +52,8 @@ $record = [
 if ($id === null) $events[] = $record;
 else $events[$id] = $record;
 
-$json = json_encode(array_values($events), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-if ($json === false || file_put_contents($file, $json . PHP_EOL, LOCK_EX) === false) { http_response_code(500); exit('Unable to save event data.'); }
+$json = json_encode(array_values($events), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+if ($json === false || file_put_contents($file, $json . PHP_EOL, LOCK_EX) === false) { http_response_code(500); exit('Unable to save event data. Check write permissions for live-data/data.'); }
 
 header('Location: index.php');
 exit;
