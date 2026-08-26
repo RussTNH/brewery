@@ -5,11 +5,11 @@ if (empty($_SESSION['brewery_admin'])) {
     exit;
 }
 
-$dataFile = __DIR__ . '/../data/beers.json';
-$assetsDir = realpath(__DIR__ . '/../assets');
-if ($assetsDir === false) {
+$dataFile = __DIR__ . '/../live-data/data/beers.json';
+$uploadsDir = __DIR__ . '/../live-data/uploads';
+if (!is_dir($uploadsDir) && !mkdir($uploadsDir, 0755, true) && !is_dir($uploadsDir)) {
     http_response_code(500);
-    exit('Assets folder not found.');
+    exit('Persistent uploads folder not found.');
 }
 
 $beers = json_decode((string)@file_get_contents($dataFile), true);
@@ -55,14 +55,14 @@ if (isset($_FILES['artwork']) && $_FILES['artwork']['error'] !== UPLOAD_ERR_NO_F
 
     $slug = strtolower(trim(preg_replace('/[^a-zA-Z0-9]+/', '-', $name), '-'));
     if ($slug === '') $slug = 'ale';
-    $filename = $slug . '-' . date('YmdHis') . '.' . $extensions[$mime];
-    $target = $assetsDir . DIRECTORY_SEPARATOR . $filename;
+    $filename = 'ale-' . $slug . '-' . date('YmdHis') . '.' . $extensions[$mime];
+    $target = $uploadsDir . DIRECTORY_SEPARATOR . $filename;
 
     if (!move_uploaded_file($tmp, $target)) {
         http_response_code(500);
         exit('Unable to save artwork.');
     }
-    $imagePath = 'assets/' . $filename;
+    $imagePath = 'live-data/uploads/' . $filename;
 }
 
 $beer = [
@@ -82,7 +82,7 @@ if ($id !== null && isset($beers[$id])) {
 $json = json_encode(array_values($beers), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 if ($json === false || file_put_contents($dataFile, $json . PHP_EOL, LOCK_EX) === false) {
     http_response_code(500);
-    exit('Unable to save ale data. Check write permissions for the data folder.');
+    exit('Unable to save ale data. Check write permissions for live-data/data.');
 }
 
 header('Location: index.php');
