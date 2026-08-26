@@ -55,16 +55,45 @@ async function loadEvents() {
         if (!response.ok) throw new Error("Unable to load events");
 
         const events = await response.json();
-        container.innerHTML = events.map(event => `
-            <article class="item event">
-                <span class="tag">${escapeHtml(event.status || "Coming Up")}</span>
-                <h3>${escapeHtml(event.title || "")}</h3>
-                ${event.description ? `<p>${escapeHtml(event.description)}</p>` : ""}
-            </article>
-        `).join("");
+        const visibleEvents = events.filter(event => String(event.status || "Coming Up").toLowerCase() !== "hidden");
+
+        container.innerHTML = visibleEvents.map(event => {
+            const when = formatEventWhen(event.date, event.time);
+            return `
+                <article class="item event${event.image ? " ale" : ""}">
+                    <div class="ale-copy">
+                        <span class="tag">${escapeHtml(event.status || "Coming Up")}</span>
+                        <h3>${escapeHtml(event.title || "")}</h3>
+                        ${when ? `<p><strong>${escapeHtml(when)}</strong></p>` : ""}
+                        ${event.description ? `<p>${escapeHtml(event.description)}</p>` : ""}
+                    </div>
+                    ${event.image ? `<img class="beer-art" src="${escapeAttribute(event.image)}" alt="${escapeAttribute(`${event.title || "Event"} artwork`)}">` : ""}
+                </article>
+            `;
+        }).join("");
     } catch (error) {
         console.error("Unable to load brewery events:", error);
     }
+}
+
+function formatEventWhen(date, time) {
+    if (!date && !time) return "";
+
+    let dateText = "";
+    if (date) {
+        const parts = String(date).split("-");
+        if (parts.length === 3) dateText = `${parts[2]}/${parts[1]}/${parts[0]}`;
+        else dateText = String(date);
+    }
+
+    let timeText = "";
+    if (time) {
+        const parts = String(time).split(":");
+        if (parts.length >= 2) timeText = `${parts[0]}:${parts[1]}`;
+        else timeText = String(time);
+    }
+
+    return [dateText, timeText].filter(Boolean).join(" · ");
 }
 
 function escapeHtml(value) {
