@@ -25,7 +25,7 @@ async function loadAles() {
     if (!container) return;
 
     try {
-        const response = await fetch("data/beers.json", { cache: "no-store" });
+        const response = await fetch("live-data/data/beers.json", { cache: "no-store" });
         if (!response.ok) throw new Error("Unable to load ales");
 
         const ales = await response.json();
@@ -51,7 +51,7 @@ async function loadEvents() {
     if (!container) return;
 
     try {
-        const response = await fetch("data/events.json", { cache: "no-store" });
+        const response = await fetch("live-data/data/events.json", { cache: "no-store" });
         if (!response.ok) throw new Error("Unable to load events");
 
         const events = await response.json();
