@@ -67,7 +67,7 @@ async function loadEvents() {
                         ${when ? `<p><strong>${escapeHtml(when)}</strong></p>` : ""}
                         ${event.description ? `<p>${escapeHtml(event.description)}</p>` : ""}
                     </div>
-                    ${event.image ? `<img class="beer-art" src="${escapeAttribute(event.image)}" alt="${escapeAttribute(`${event.title || "Event"} artwork`)}">` : ""}
+                    ${event.image ? `<img class="beer-art event-art" src="${escapeAttribute(event.image)}" alt="${escapeAttribute(`${event.title || "Event"} artwork`)}">` : ""}
                 </article>
             `;
         }).join("");
