@@ -5,7 +5,7 @@ if (empty($_SESSION['brewery_admin'])) {
     exit;
 }
 
-$dataFile = __DIR__ . '/../data/beers.json';
+$dataFile = __DIR__ . '/../live-data/data/beers.json';
 $beers = json_decode((string)@file_get_contents($dataFile), true);
 if (!is_array($beers)) $beers = [];
 
