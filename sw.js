@@ -1,5 +1,5 @@
-const CACHE_NAME = "clevedon-brewery-pwa-v1";
-const APP_FILES = ["./","index.html","style.css","app.js","manifest.webmanifest","assets/ipa.svg","assets/bs21.svg","assets/foolsgold.jpg"];
+const CACHE_NAME = "clevedon-brewery-pwa-v2";
+const APP_FILES = ["./","index.html","guide.html","style.css","app.js","manifest.webmanifest","assets/icon-192.png","assets/icon-512.png","assets/brewery-logo.svg","assets/ipa.svg","assets/bs21.svg","assets/foolsgold.jpg"];
 
 self.addEventListener("install", event => {
     event.waitUntil(
