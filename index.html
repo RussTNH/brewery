@@ -10,56 +10,24 @@
     <meta name="apple-mobile-web-app-title" content="Clevedon Brewery">
     <meta name="description" content="Clevedon Brewery & Tap Bar — locally brewed ales, events and opening times.">
     <link rel="manifest" href="manifest.webmanifest">
-    <link rel="stylesheet" href="style.css?v=10">
-    <title>Clevedon Brewery & Tap Bar</title>
+    <link rel="stylesheet" href="style.css?v=11">
+    <title>Welcome to Clevedon Brewery</title>
 </head>
 <body>
-<main class="app">
-    <header class="hero">
-        <img class="hero-logo" src="assets/brewery-logo.svg" alt="Clevedon Brewery logo">
+<main class="intro-shell">
+    <section class="intro-card">
+        <img class="intro-logo" src="assets/brewery-logo.svg" alt="Clevedon Brewery logo">
+        <p class="eyebrow">Welcome to</p>
         <h1>Clevedon Brewery<br>&amp; Tap Bar</h1>
-        <p>Good beer. Local people. A warm welcome.</p>
-    </header>
-    <nav class="links" aria-label="Quick links">
-        <a href="#ales">Our Ales</a><a href="#events">What's On</a><a href="#hours">Opening Times</a><a href="#location">Location</a>
-    </nav>
-    <section id="ales" class="card">
-        <div class="heading"><span aria-hidden="true">🍺</span><div><p class="eyebrow">Freshly poured</p><h2>Current Ales</h2></div></div>
-        <div id="ale-list" class="list">
-            <article class="item ale"><div class="ale-copy"><span class="tag">On Tap</span><h3>IPA</h3><p>A crisp, hop-forward brewery favourite.</p></div><img class="beer-art" src="assets/ipa.svg" alt="Clevedon Brewery IPA artwork"></article>
-            <article class="item ale"><div class="ale-copy"><span class="tag">On Tap</span><h3>BS21</h3><p>A locally brewed ale from Clevedon Brewery.</p></div><img class="beer-art" src="assets/bs21.svg" alt="Clevedon Brewery BS21 artwork"></article>
-            <article class="item ale"><div class="ale-copy"><span class="tag">On Tap</span><h3>Fools Gold</h3><p>From Twisted Oak.</p></div><img class="beer-art" src="assets/foolsgold.jpg" alt="Twisted Oak Fools Gold artwork"></article>
-        </div>
-    </section>
-    <section id="events" class="card"><div class="heading"><span aria-hidden="true">🎵</span><div><p class="eyebrow">At the Tap Bar</p><h2>What's On</h2></div></div><div id="event-list" class="list"><article class="item event"><span class="tag">Coming Up</span><h3>Events coming soon</h3><p>Check back for live music, markets and brewery events.</p></article></div></section>
-    <section id="hours" class="card"><div class="heading"><span aria-hidden="true">🕒</span><div><p class="eyebrow">Come and see us</p><h2>Opening Times</h2></div></div><dl class="hours"><div><dt>Thursday</dt><dd>4pm – 7pm</dd></div><div><dt>Friday</dt><dd>4pm – 9pm</dd></div><div><dt>Saturday</dt><dd>2pm – 9pm</dd></div><div><dt>Sunday</dt><dd>2pm – 6pm</dd></div></dl></section>
-    <section id="location" class="card location-card">
-        <div class="heading"><span aria-hidden="true">📍</span><div><p class="eyebrow">Find the Tap Bar</p><h2>Location</h2></div></div>
-        <p class="map-address"><strong>Clevedon Brewery &amp; Tap Bar</strong><br>Unit 1, Tweed Road Industrial Estate<br>Clevedon, BS21 6RR<br><strong>what3words:</strong> <a href="https://w3w.co/smart.owls.eating" target="_blank" rel="noopener">///smart.owls.eating</a></p>
-        <div class="map-wrap">
-            <iframe title="Map showing Clevedon Brewery & Tap Bar" src="https://www.google.com/maps?q=51.430746,-2.860839&z=18&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
-        </div>
-        <a class="directions-button" href="https://www.google.com/maps/dir/?api=1&destination=51.430746,-2.860839" target="_blank" rel="noopener">Get Directions</a>
-    </section>
-    <section id="contact" class="card contact-card">
-        <div class="heading"><span aria-hidden="true">💬</span><div><p class="eyebrow">Keep in touch</p><h2>Contact &amp; Social</h2></div></div>
-        <div class="contact-links">
-            <a class="contact-button" href="mailto:cheers@clevedonbrewery.co.uk"><span class="contact-icon" aria-hidden="true">✉️</span><span><strong>Email Us</strong><small>cheers@clevedonbrewery.co.uk</small></span></a>
-            <a class="contact-button" href="https://www.facebook.com/ClevedonBrewery.co.uk" target="_blank" rel="noopener"><span class="contact-icon facebook-icon" aria-hidden="true">f</span><span><strong>Facebook</strong><small>Clevedon Brewery</small></span></a>
-        </div>
-    </section>
-    <section id="install" class="card install-card">
-        <div class="heading"><span aria-hidden="true">📲</span><div><p class="eyebrow">Keep us handy</p><h2>Install the Brewery App</h2></div></div>
-        <p class="install-intro">Add Clevedon Brewery to your phone for quick access to our ales, events, opening times and location.</p>
-        <button id="install-app-button" class="install-button" type="button" hidden>Install App</button>
-        <div id="ios-install" class="ios-install" hidden>
-            <strong>iPhone / iPad</strong>
+        <p class="intro-copy">Your pocket guide to our ales, events, opening times and location.</p>
+        <a class="intro-primary" href="guide.html">View Brewery Guide</a>
+        <button id="install-app-button" class="intro-secondary" type="button" hidden>Install Brewery App</button>
+        <div id="ios-install" class="ios-install intro-ios" hidden>
+            <strong>Install on iPhone / iPad</strong>
             <p>In Safari, tap the <strong>Share</strong> button, choose <strong>Add to Home Screen</strong>, then tap <strong>Add</strong>.</p>
         </div>
     </section>
-    <section class="welcome"><p class="eyebrow">Clevedon Brewery &amp; Tap Bar</p><h2>Local beer. Local people.</h2><p>Community brewed, proudly local and always happy to welcome new faces.</p></section>
-    <footer>Clevedon Brewery &amp; Tap Bar</footer>
 </main>
-<script src="app.js?v=3"></script>
+<script src="app.js?v=4"></script>
 </body>
 </html>
