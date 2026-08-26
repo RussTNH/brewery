@@ -2,8 +2,8 @@
 session_start();
 if (empty($_SESSION['brewery_admin'])) { header('Location: index.php'); exit; }
 
-$file = __DIR__ . '/../data/events.json';
-$events = json_decode(file_get_contents($file), true) ?: [];
+$file = __DIR__ . '/../live-data/data/events.json';
+$events = json_decode((string)@file_get_contents($file), true) ?: [];
 $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
 $event = ($id !== null && isset($events[$id])) ? $events[$id] : [
     'title' => '',
@@ -21,7 +21,7 @@ $event = ($id !== null && isset($events[$id])) ? $events[$id] : [
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title><?= $id === null ? 'Add Event' : 'Edit Event' ?></title>
 <style>
-body{font-family:Arial,sans-serif;background:#c82020;margin:0;color:#211b15}.wrap{max-width:620px;margin:auto;padding:18px}.panel{background:#fff2c7;border-radius:20px;padding:20px}.field{margin:14px 0}label{display:block;font-weight:700;margin-bottom:6px}input,textarea,select{width:100%;box-sizing:border-box;padding:12px;border:1px solid #c9a34a;border-radius:9px;background:#fff9e7;font:inherit}textarea{min-height:110px;resize:vertical}.button{display:inline-block;background:#c82020;color:#fff;border:0;text-decoration:none;padding:11px 15px;border-radius:9px;font-weight:700;cursor:pointer}.cancel{background:#6d6257}.current{margin-top:8px;color:#65594c;font-size:.9rem}.current img{display:block;width:110px;max-height:140px;object-fit:cover;border-radius:8px;margin-top:8px}
+body{font-family:Arial,sans-serif;background:#c82020;margin:0;color:#211b15}.wrap{max-width:620px;margin:auto;padding:18px}.panel{background:#fff2c7;border-radius:20px;padding:20px}.field{margin:14px 0}label{display:block;font-weight:700;margin-bottom:6px}input,textarea,select{width:100%;box-sizing:border-box;padding:12px;border:1px solid #c9a34a;border-radius:9px;background:#fff9e7;font:inherit}textarea{min-height:110px;resize:vertical}.button{display:inline-block;background:#c82020;color:#fff;border:0;text-decoration:none;padding:11px 15px;border-radius:9px;font-weight:700;cursor:pointer}.cancel{background:#6d6257}.current{margin-top:8px;color:#65594c;font-size:.9rem}.current img{display:block;width:110px;max-height:140px;object-fit:contain;border-radius:8px;margin-top:8px;background:#fff}
 </style>
 </head>
 <body>
