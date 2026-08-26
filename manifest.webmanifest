@@ -1,9 +1,10 @@
 {
   "name": "Clevedon Brewery & Tap Bar",
   "short_name": "Clevedon Brewery",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#c82020",
   "theme_color": "#c82020",
-  "description": "Clevedon Brewery & Tap Bar — locally brewed ales, events and opening times."
+  "description": "Clevedon Brewery & Tap Bar — locally brewed ales, events and opening times.",
+  "icons": []
 }
