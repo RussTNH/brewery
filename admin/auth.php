@@ -26,14 +26,27 @@ function brewery_admin_start_session(): void
     session_start();
 }
 
-function brewery_admin_password_hash(): string
+function brewery_admin_environment_value(string $name): string
 {
-    $hash = getenv('BREWERY_ADMIN_PASSWORD_HASH');
-    if (($hash === false || trim($hash) === '') && isset($_SERVER['BREWERY_ADMIN_PASSWORD_HASH'])) {
-        $hash = (string)$_SERVER['BREWERY_ADMIN_PASSWORD_HASH'];
+    $value = getenv($name);
+    if (($value === false || trim($value) === '') && isset($_SERVER[$name])) {
+        $value = (string)$_SERVER[$name];
     }
 
-    return trim((string)$hash);
+    return trim((string)$value);
+}
+
+function brewery_admin_password_hash(): string
+{
+    // PHP-FPM expands dollar-prefixed values in pool configuration. Plesk can
+    // therefore provide the hash as Base64 without changing the hash itself.
+    $encodedHash = brewery_admin_environment_value('BREWERY_ADMIN_PASSWORD_HASH_B64');
+    if ($encodedHash !== '') {
+        $decodedHash = base64_decode($encodedHash, true);
+        return $decodedHash === false ? '' : trim($decodedHash);
+    }
+
+    return brewery_admin_environment_value('BREWERY_ADMIN_PASSWORD_HASH');
 }
 
 function brewery_admin_password_is_configured(): bool

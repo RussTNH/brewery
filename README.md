@@ -21,10 +21,13 @@ locally.
 
 ## Server configuration
 
-- Set `BREWERY_ADMIN_PASSWORD_HASH` to a hash produced by PHP's
-  `password_hash(..., PASSWORD_DEFAULT)` before using `/admin/`. There is no
-  password stored in this public repository, and admin login stays disabled
-  until the server setting is present.
+- Before using `/admin/`, create a hash with PHP's
+  `password_hash(..., PASSWORD_DEFAULT)`. For Plesk/PHP-FPM, Base64-encode that
+  hash and set it as `BREWERY_ADMIN_PASSWORD_HASH_B64`; Base64 avoids PHP-FPM
+  interpreting the hash's dollar signs. Other server environments may set the
+  raw hash as `BREWERY_ADMIN_PASSWORD_HASH`. There is no password stored in this
+  public repository, and admin login stays disabled until a valid server setting
+  is present.
 - Statistics default to the PHP-guarded `live-data/data/stats.php` file. For an
   additional layer of protection, set `BREWERY_STATS_DATA_DIR` to a writable
   directory outside the public document root.
