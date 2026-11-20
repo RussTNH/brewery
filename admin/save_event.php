@@ -1,6 +1,6 @@
 <?php
-session_start();
-if (empty($_SESSION['brewery_admin'])) { header('Location: index.php'); exit; }
+require_once __DIR__ . '/auth.php';
+brewery_admin_require_login();
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') { header('Location: index.php'); exit; }
 
 $file = __DIR__ . '/../live-data/data/events.json';

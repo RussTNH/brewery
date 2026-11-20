@@ -1,82 +1,60 @@
 <?php
 // Clevedon Brewery PWA - anonymous usage counter endpoint.
-// Stores totals only. No names, IP addresses or other visitor details are retained.
+// This counter stores totals only; it does not add visitor details to the statistics file.
+
+require_once __DIR__ . '/lib/statistics.php';
 
 header('Content-Type: application/json; charset=utf-8');
-header('Cache-Control: no-store');
+header('Cache-Control: no-store, private');
+header('X-Content-Type-Options: nosniff');
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode(['success' => false, 'error' => 'Method not allowed']);
+function tracking_response(int $status, array $body): void
+{
+    http_response_code($status);
+    echo json_encode($body);
     exit;
 }
 
-$allowed = [
-    'welcome_view',
-    'guide_view',
-    'install_click',
-    'android_install',
-    'ios_instructions'
-];
-
-$input = json_decode((string)file_get_contents('php://input'), true);
-$event = is_array($input) ? (string)($input['event'] ?? '') : '';
-
-if (!in_array($event, $allowed, true)) {
-    http_response_code(400);
-    echo json_encode(['success' => false, 'error' => 'Invalid event']);
-    exit;
+if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
+    header('Allow: POST');
+    tracking_response(405, ['success' => false, 'error' => 'Method not allowed']);
 }
 
-$dataDir = __DIR__ . '/live-data/data';
-$statsFile = $dataDir . '/stats.json';
-
-if (!is_dir($dataDir) && !mkdir($dataDir, 0755, true) && !is_dir($dataDir)) {
-    http_response_code(500);
-    echo json_encode(['success' => false, 'error' => 'Unable to create data directory']);
-    exit;
+$fetchSite = strtolower(trim((string)($_SERVER['HTTP_SEC_FETCH_SITE'] ?? '')));
+if ($fetchSite !== '' && !in_array($fetchSite, ['same-origin', 'none'], true)) {
+    tracking_response(403, ['success' => false, 'error' => 'Cross-site request denied']);
 }
 
-$handle = fopen($statsFile, 'c+');
-if ($handle === false) {
-    http_response_code(500);
-    echo json_encode(['success' => false, 'error' => 'Unable to open statistics file']);
-    exit;
+$contentType = strtolower(trim((string)($_SERVER['CONTENT_TYPE'] ?? '')));
+$mediaType = trim(explode(';', $contentType, 2)[0]);
+if ($mediaType !== 'application/json') {
+    tracking_response(415, ['success' => false, 'error' => 'JSON request required']);
 }
 
-if (!flock($handle, LOCK_EX)) {
-    fclose($handle);
-    http_response_code(500);
-    echo json_encode(['success' => false, 'error' => 'Unable to lock statistics file']);
-    exit;
+$contentLength = (int)($_SERVER['CONTENT_LENGTH'] ?? 0);
+if ($contentLength > 1024) {
+    tracking_response(413, ['success' => false, 'error' => 'Request too large']);
 }
 
-$existing = stream_get_contents($handle);
-$stats = json_decode($existing ?: '{}', true);
-if (!is_array($stats)) {
-    $stats = [];
+$rawInput = file_get_contents('php://input');
+if ($rawInput === false || strlen($rawInput) > 1024) {
+    tracking_response(413, ['success' => false, 'error' => 'Request too large']);
 }
 
-foreach ($allowed as $key) {
-    if (!isset($stats[$key]) || !is_numeric($stats[$key])) {
-        $stats[$key] = 0;
-    }
+$input = json_decode($rawInput, true);
+if (!is_array($input) || json_last_error() !== JSON_ERROR_NONE) {
+    tracking_response(400, ['success' => false, 'error' => 'Invalid JSON']);
 }
 
-$stats[$event]++;
-$stats['last_updated'] = gmdate('c');
-
-rewind($handle);
-ftruncate($handle, 0);
-$written = fwrite($handle, json_encode($stats, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
-fflush($handle);
-flock($handle, LOCK_UN);
-fclose($handle);
-
-if ($written === false) {
-    http_response_code(500);
-    echo json_encode(['success' => false, 'error' => 'Unable to save statistics']);
-    exit;
+$event = (string)($input['event'] ?? '');
+if (!in_array($event, brewery_stats_event_keys(), true)) {
+    tracking_response(400, ['success' => false, 'error' => 'Invalid event']);
 }
 
-echo json_encode(['success' => true]);
+$storageError = null;
+if (!brewery_stats_increment($event, $storageError)) {
+    error_log('Brewery statistics error: ' . ($storageError ?? 'Unknown storage error'));
+    tracking_response(500, ['success' => false, 'error' => 'Unable to save statistics']);
+}
+
+tracking_response(200, ['success' => true]);

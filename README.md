@@ -13,15 +13,23 @@ A simple public information-board PWA for Clevedon Brewery & Tap Bar.
 
 ## Development
 
-```bash
-npm install
-npm run dev
-```
+The public PWA is plain HTML, CSS and JavaScript, with PHP used for the admin
+area and anonymous statistics. There is no build step or npm dependency.
 
-## Build
+Use PHP 7.4 or newer and serve the repository as the document root when testing
+locally.
 
-```bash
-npm run build
-```
+## Server configuration
+
+- Set `BREWERY_ADMIN_PASSWORD_HASH` to a hash produced by PHP's
+  `password_hash(..., PASSWORD_DEFAULT)` before using `/admin/`. There is no
+  password stored in this public repository, and admin login stays disabled
+  until the server setting is present.
+- Statistics default to the PHP-guarded `live-data/data/stats.php` file. For an
+  additional layer of protection, set `BREWERY_STATS_DATA_DIR` to a writable
+  directory outside the public document root.
+- The first tracked event or authenticated dashboard visit migrates totals from
+  the old `live-data/data/stats.json` file and removes its publicly readable
+  contents.
 
 The intended public URL is `https://brewery.clevedon.me`.
