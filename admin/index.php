@@ -10,10 +10,12 @@ if (isset($_GET['logout'])) {
     exit;
 }
 
-$adminConfigured = brewery_admin_password_is_configured();
+$externalUsername = brewery_admin_external_username();
+$externallyAuthenticated = $externalUsername !== '';
+$adminConfigured = $externallyAuthenticated || brewery_admin_password_is_configured();
 $error = $adminConfigured ? '' : 'Admin login has not been configured on this server.';
 
-if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['password'])) {
+if (!$externallyAuthenticated && ($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['password'])) {
     if (!$adminConfigured) {
         $error = 'Admin login has not been configured on this server.';
     } elseif (brewery_admin_verify_password((string)$_POST['password'])) {
@@ -118,7 +120,11 @@ if (!empty($stats['last_updated'])) {
     <section class="panel">
         <div class="top">
             <div><h1>Clevedon Brewery Admin</h1><p class="muted">Simple management for the public PWA.</p></div>
-            <a class="button" href="?logout=1">Log out</a>
+            <?php if ($externallyAuthenticated): ?>
+                <span class="muted">Protected by Plesk · <?=htmlspecialchars($externalUsername, ENT_QUOTES, 'UTF-8')?></span>
+            <?php else: ?>
+                <a class="button" href="?logout=1">Log out</a>
+            <?php endif; ?>
         </div>
     </section>
 

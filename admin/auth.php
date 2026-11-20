@@ -60,6 +60,24 @@ function brewery_admin_password_is_configured(): bool
     return isset($details['algoName']) && $details['algoName'] !== 'unknown';
 }
 
+function brewery_admin_external_username(): string
+{
+    // Plesk's Password-Protected Directories feature authenticates visitors in
+    // Apache before PHP runs and exposes the verified username as REMOTE_USER.
+    // Do not trust PHP_AUTH_USER here: PHP can populate it from an unverified
+    // Authorization header when the web server is not enforcing authentication.
+    if (!brewery_admin_is_https()) {
+        return '';
+    }
+
+    return trim((string)($_SERVER['REMOTE_USER'] ?? ''));
+}
+
+function brewery_admin_uses_external_auth(): bool
+{
+    return brewery_admin_external_username() !== '';
+}
+
 function brewery_admin_verify_password(string $password): bool
 {
     return brewery_admin_password_is_configured()
@@ -68,6 +86,10 @@ function brewery_admin_verify_password(string $password): bool
 
 function brewery_admin_is_authenticated(): bool
 {
+    if (brewery_admin_uses_external_auth()) {
+        return true;
+    }
+
     if (empty($_SESSION['brewery_admin']) || !brewery_admin_password_is_configured()) {
         return false;
     }

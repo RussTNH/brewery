@@ -21,7 +21,11 @@ locally.
 
 ## Server configuration
 
-- Before using `/admin/`, create a hash with PHP's
+- On Plesk accounts that provide **Password-Protected Directories**, protect the
+  `admin` directory and add a Plesk user for it. The admin pages recognise the
+  server-verified `REMOTE_USER`, so no application password setting is needed.
+  Always access the protected directory over HTTPS.
+- Alternatively, before using `/admin/`, create a hash with PHP's
   `password_hash(..., PASSWORD_DEFAULT)`. For Plesk/PHP-FPM, Base64-encode that
   hash and set it as `BREWERY_ADMIN_PASSWORD_HASH_B64`; Base64 avoids PHP-FPM
   interpreting the hash's dollar signs. Other server environments may set the
@@ -35,4 +39,4 @@ locally.
   the old `live-data/data/stats.json` file and removes its publicly readable
   contents.
 
-The intended public URL is `https://brewery.clevedon.me`.
+The intended public URL is `https://clevedonbrewery.clevedon.me`.
