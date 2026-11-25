@@ -1,0 +1,23 @@
+[
+  {
+    "name": "IPA",
+    "description": "A crisp, hop-forward brewery favourite.",
+    "status": "On Tap",
+    "image": "assets/ipa.svg",
+    "alt": "Clevedon Brewery IPA artwork"
+  },
+  {
+    "name": "BS21",
+    "description": "A locally brewed ale from Clevedon Brewery.",
+    "status": "On Tap",
+    "image": "assets/bs21.svg",
+    "alt": "Clevedon Brewery BS21 artwork"
+  },
+  {
+    "name": "Fools Gold",
+    "description": "From Twisted Oak.",
+    "status": "On Tap",
+    "image": "assets/foolsgold.jpg",
+    "alt": "Twisted Oak Fools Gold artwork"
+  }
+]
